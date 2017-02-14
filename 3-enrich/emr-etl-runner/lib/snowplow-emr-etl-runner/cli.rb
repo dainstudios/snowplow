@@ -134,25 +134,6 @@ module Snowplow
         [args, config, enrichments, resolver]
       end
 
-    private
-
-      # Convert all keys in arbitrary hash into symbols
-      # Taken from http://stackoverflow.com/a/10721936/255627
-      def self.recursive_symbolize_keys(h)
-        case h
-        when Hash
-          Hash[
-            h.map do |k, v|
-              [ k.respond_to?(:to_sym) ? k.to_sym : k, recursive_symbolize_keys(v) ]
-            end
-          ]
-        when Enumerable
-          h.map { |v| recursive_symbolize_keys(v) }
-        else
-          h
-        end
-      end
-
       # Validate our args, load our config YAML, check config and args don't conflict
       Contract Maybe[String], String => ConfigHash
       def self.load_config(config_file, summary)
@@ -207,6 +188,25 @@ module Snowplow
         end
 
         File.read(resolver_file)
+      end
+
+    private
+
+      # Convert all keys in arbitrary hash into symbols
+      # Taken from http://stackoverflow.com/a/10721936/255627
+      def self.recursive_symbolize_keys(h)
+        case h
+        when Hash
+          Hash[
+            h.map do |k, v|
+              [ k.respond_to?(:to_sym) ? k.to_sym : k, recursive_symbolize_keys(v) ]
+            end
+          ]
+        when Enumerable
+          h.map { |v| recursive_symbolize_keys(v) }
+        else
+          h
+        end
       end
 
     end

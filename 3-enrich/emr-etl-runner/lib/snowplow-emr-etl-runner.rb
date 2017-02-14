@@ -24,6 +24,7 @@ require_relative 'snowplow-emr-etl-runner/scalding_step'
 require_relative 'snowplow-emr-etl-runner/job_result'
 require_relative 'snowplow-emr-etl-runner/emr_job'
 require_relative 'snowplow-emr-etl-runner/runner'
+require_relative 'snowplow-emr-etl-runner/generator'
 
 module Snowplow
   module EmrEtlRunner
